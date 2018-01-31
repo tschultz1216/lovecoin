@@ -1,0 +1,148 @@
+-Install Oracle Virtual Machine
+-https://www.ubuntu.com/download/desktop - Download the Ubuntu iso file
+-Select "new" in the top left
+-name this machine lovecoin -client
+-allocate up to 4gb of memory (Note:this is ram memory so if your computer only has 4 gigs you cannot devote all 4 to Virtual Box)
+-Check the default (create a virtual harddisk now)
+-default format is fine
+-check dynamicallly allocated
+-allocate 20 gigs of hardrive space
+-attempt to boot the machine, it will ask for the file you downloaded from ubuntu
+-wait for linux to install
+
+After install is complete run these commands in the command propmt to install dependencies
+
+sudo apt-get install git
+ 
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
+ 
+sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
+ 
+sudo apt-get install libboost-all-dev
+ 
+sudo apt-get install software-properties-common
+ 
+sudo add-apt-repository ppa:bitcoin/bitcoin
+ 
+sudo apt-get update
+ 
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
+ 
+sudo apt-get install libminiupnpc-dev
+ 
+sudo apt-get install libzmq3-dev
+ 
+sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
+ 
+sudo apt-get install libqt4-dev libprotobuf-dev protobuf-compiler
+
+git clone https://github.com/tschultz1216/lovecoin.git
+
+---------step one finished-----------
+
+-open the terminal in linux
+
+-navigate to the src folder of lovecoin
+
+-run the command make -f makefile.unix
+
+--this is will compile the coin 
+ 
+--navigate one level higher to the base lovecoin directory and enter the command qmake
+
+--you'll see a couple terminal messages, thats fine. once they are done simply enter "make"
+
+--now your lovecoin folder contain a file called lovecoin-qt, this is the graphical interface for lovecoin
+
+----Step 2 finished------------
+
+-navigate back to oracle VM manager
+
+-right click on lovecoin -client select settings
+
+-go to network 
+
+-for the "attached to" drop down menu select bridged network adapter
+
+-next to "name" select the internet adapter on your computer to use (make sure this is your real adapter. if your not sure what you adapter's name is, you can find it by googling it for the model of your pc)
+
+-press ok
+
+now we will clone this machine to create a server for the network
+
+-right click lovecoin -client select clone
+
+-name this machine lovecoin -server
+
+-check the checkbox
+
+-hit next
+
+-select linked clone and press clone
+
+--(optional step) right click on lovecoin -client, select systen -> processors and assign more cpu cores to your client. this will help with mining speed,  i reccomend four cores
+
+--Start the clone
+
+--open ubuntu file manager in the home directory and hit control h to show hidden files and directories (note: while within oracle virtual box, only the left control key will work. the right key is mapped for specific uses to manage the VM)
+
+--open the  .lovecoin folder and delete its inner contents. 
+
+--within .lovecoin create a new folder lovecoin.conf
+
+--open this file and copy and paste the three lines below
+
+server=1
+rpcuser=user
+rpcpassword=password
+
+(dont worry about security these are not login credentials. just values that the litecoin, bitcoin, and by extension lovecoin need to identify which machines are servers)
+
+-save lovecoin.conf
+
+-open the lovecoin -client machine
+
+-use the same process to locate and open your hidden .lovecoin folder
+
+-NOTE: DO NOT DELETE ANY VALUES
+
+-Create a new file, lovecoin.conf 
+
+-in this file we will be  saving the ip of the server. this is done by saying 
+addnode=ip address. to get the ip address of your server, open the lovecoin -server window. in the top right of your os there are two vertical arrows, right click the arrows and select connection information. use the ip adderess under IPv4. you will not be able to copy and paste across machines so you will have to enter the ip address manually. when done with this step the lovecoin.conf on the client should read as: addnode=clone ip address. save the file
+
+-open the server window. open the location folder of your coin and run the command lovecoin-qt -testnet. this will open the graphical interface in the testnet so that we dont have to wrry about messing up the actual network if something goes wrong. you'll notice that these are all the litecoin image assets we have to replace
+
+-open the client window and navigate to the lovecoin folder. 
+
+-run lovecoin-qt -testnet. when the GUI opens check thw bottom right hand corner. you should be able to hover over a small red bar and get a message (1 connection to network) this means that there is one connection to the network besides from the the machine you are currently on. if it says zero active connection, either the lovecoin.conf on one of the machines is incorrect or you started one of the machines on the mainnet
+
+---step 3 finished---
+
+-from your client machine open the debug window, this is done hovering on the top right corner of the lovecoin window selecting help -> debug window. select the console tab and within the debug console enter the command setgenerate true
+
+-we are now mining coins!
+
+-this is a waiting game, once the client finds the first block the server and client will sync.
+
+- once you have the 1st testnet block finished you should receive and unconfirmed lovecoin reward.
+
+--step 4 finished---
+
+-now we are ready to mine on mainnet.
+
+-close your testnet windows
+
+-within both machines navigate to the lovecoin folder and run the command lovecoin-qt
+
+-redo the step of running setgenerate true from within the debug window
+
+- we are now mining on mainnet!
+
+- it will take awhile before you see any lovecoin move from "immature" to the available wallet. This is feature of the system that prevents malicious intent and network manipulation. your immature coins will migrate to the available wallet once an additional 30 blocks have been mined.
+
+- i would recommend leaving this to run over night. make sure the laptop is plugged in and set not to ever "go to sleep"
+
+-upon returning in the morning you should have a lovecoin balance that you can transfer between the two machines via the send and recieve tabs from within the wallet
+
+-The next step would be identifying a network engineer who could configure a dedicated server to take the place of the virtualized server
