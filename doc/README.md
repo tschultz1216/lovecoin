@@ -1,8 +1,9 @@
-lovecoin 0.8.x BETA
+lovecoin 0.8.x BETA DISCLAIMER: This is slightly more than a fork of litecoin. I have changed only block rewards, difficulty targeting, nameing convention, and DNS Routing. Credit to the Bitcoin and Litecoin  teams
 ====================
 
 Copyright (c) 2009-2014 Bitcoin Developers
-Copyright (c) 2011-2014 lovecoin Developers
+Copyright (c) 2011-2014 litecoin Developers
+Copyright (c) 2017-2018 Lovecoin Team
 
 Distributed under the MIT/X11 software license, see the accompanying
 file COPYING or http://www.opensource.org/licenses/mit-license.php.
