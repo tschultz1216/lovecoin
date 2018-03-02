@@ -1,4 +1,4 @@
-lovecoin 0.8.x BETA DISCLAIMER: This is slightly more than a fork of litecoin. I have changed only block rewards, difficulty targeting, nameing convention, and DNS Routing. Credit to the Bitcoin and Litecoin  teams
+lovecoin 0.8.x BETA DISCLAIMER: This is slightly more than a fork of litecoin. I have changed only block rewards, difficulty targeting, nameing convention, and DNS Routing. Credit to the Bitcoin and Litecoin teams
 ====================
 
 Copyright (c) 2009-2014 Bitcoin Developers
@@ -30,9 +30,6 @@ Unpack the files into a directory and run:
 - bin/32/lovecoind (headless, 32-bit)
 - bin/64/lovecoin-qt (GUI, 64-bit)
 - bin/64/lovecoind (headless, 64-bit)
-
-See the documentation at the [lovecoin Wiki](http://lovecoin.info)
-for help and more information.
 
 
 Other Pages
